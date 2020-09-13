@@ -12,7 +12,7 @@ class _MovrHomePageState extends State<MovrHomePage>
 
   void moviesButtonPressed()
   {
-    Navigator.pushNamed(context, '/SelectGenres');
+    Navigator.pushNamed(context, '/SelectServices');
   }
 
   @override

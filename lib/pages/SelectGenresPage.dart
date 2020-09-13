@@ -3,9 +3,10 @@ import '../components/GenreButton.dart';
 
 
 class SelectGenresPage extends StatefulWidget {
-  SelectGenresPage({Key key, this.title}): super(key: key);
+  SelectGenresPage({Key key, @required this.services, this.title}): super(key: key);
 
   final String title;
+  final List<String> services;
 
   @override
   _SelectGenresPageState createState() => _SelectGenresPageState();
@@ -15,7 +16,10 @@ class _SelectGenresPageState extends State<SelectGenresPage> {
 
   @override
   Widget build(BuildContext context) {
-
+    for(String service in this.widget.services)
+    {
+      print("Service Passed to Genres Page: " + service);
+    }
     var size = MediaQuery.of(context).size;
 
     /*24 is for notification bar on Android*/
@@ -33,6 +37,7 @@ class _SelectGenresPageState extends State<SelectGenresPage> {
           crossAxisCount: 1,
           childAspectRatio: (itemWidth/itemHeight),
           scrollDirection: Axis.vertical,
+          //TODO: Create buttons using WidgetBuilder
           children: <Widget>[
             GenreButton(genre: 'Action'),
             GenreButton(genre: 'Drama'),
@@ -40,7 +45,10 @@ class _SelectGenresPageState extends State<SelectGenresPage> {
             GenreButton(genre: 'Horror'),
             GenreButton(genre: 'Romance'),
           ]
-        )
+        ),
+        floatingActionButton: FloatingActionButton(
+            child: Icon(Icons.check),
+            onPressed: null)
     );
   }
 }

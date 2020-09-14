@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movr/pages/GroupSelectionPage.dart';
 
 //Local Imports
 import 'pages/MovrHomePage.dart';
@@ -17,6 +18,7 @@ class Movr extends StatelessWidget{
         '/': (context) => MovrHomePage(),
         //'/SelectGenres': (context) => SelectGenresPage(),
         '/SelectServices': (context) => SelectServicesPage(),
+        '/GroupSizeSelection': (context) => GroupSelectionPage(),
       },
       title: 'Movr: Tinder for Movies',
       theme: ThemeData(

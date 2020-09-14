@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../util/UserSelections.dart' as UserSelections;
+
 class ServiceButton extends StatefulWidget{
   final String serviceName;
   final bool selected = false;
-  List<String> services;
 
-  ServiceButton({Key key, @required this.services, this.serviceName}): super(key: key);
+  ServiceButton({Key key, this.serviceName}): super(key: key);
 
   @override
   _ServiceButtonState createState() => _ServiceButtonState();
@@ -14,6 +15,7 @@ class ServiceButton extends StatefulWidget{
 class _ServiceButtonState extends State<ServiceButton>{
 
   bool selected = false;
+  List<String> services = UserSelections.services;
 
   void select(List<String> services)
   {
@@ -43,7 +45,7 @@ class _ServiceButtonState extends State<ServiceButton>{
     return new RaisedButton(
       child: Text(this.widget.serviceName),
       color: color,
-      onPressed: () => select(this.widget.services),
+      onPressed: () => select(services),
     );
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../util/UserSelections.dart' as UserSelections;
+
 class GenreButton extends StatefulWidget {
 
   final String genre;
@@ -14,13 +16,16 @@ class GenreButton extends StatefulWidget {
 class _GenreButtonState extends State<GenreButton> {
 
   bool selected = false;
+  List<String> genres = UserSelections.genres;
 
   void select(){
     setState(() {
       if(selected){
+        genres.remove(this.widget.genre);
         selected = false;
       }
       else{
+        genres.add(this.widget.genre);
         selected = true;
       }
     });

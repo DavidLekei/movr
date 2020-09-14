@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import '../components/GenreButton.dart';
+import 'GroupSelectionPage.dart';
+
+import '../util/UserSelections.dart' as UserSelections;
 
 
 class SelectGenresPage extends StatefulWidget {
-  SelectGenresPage({Key key, @required this.services, this.title}): super(key: key);
+  SelectGenresPage({Key key, this.title}): super(key: key);
 
   final String title;
-  final List<String> services;
 
   @override
   _SelectGenresPageState createState() => _SelectGenresPageState();
@@ -14,9 +16,27 @@ class SelectGenresPage extends StatefulWidget {
 
 class _SelectGenresPageState extends State<SelectGenresPage> {
 
+  List<String> genres = UserSelections.genres;
+
+  void checkButtonPressed(){
+    print('Genres Selected: ');
+      for(String genre in genres)
+        {
+          print(genre);
+        }
+      Navigator.push(context, MaterialPageRoute(builder: (context) => GroupSelectionPage()));
+  }
+
+  Future<bool> backPressed() async
+  {
+    print("Back Pressed");
+    UserSelections.genres.clear();
+    Navigator.pop(context, true);
+  }
+
   @override
   Widget build(BuildContext context) {
-    for(String service in this.widget.services)
+    for(String service in UserSelections.services)
     {
       print("Service Passed to Genres Page: " + service);
     }
@@ -25,30 +45,32 @@ class _SelectGenresPageState extends State<SelectGenresPage> {
     /*24 is for notification bar on Android*/
     final double itemHeight = (size.height - kToolbarHeight - 24) / 20;
     final double itemWidth = size.width / 2;
-
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('Select Genres', style: TextStyle(fontSize: 24)),
-        ),
-        body: GridView.count(
-          primary: false,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-          crossAxisCount: 1,
-          childAspectRatio: (itemWidth/itemHeight),
-          scrollDirection: Axis.vertical,
-          //TODO: Create buttons using WidgetBuilder
-          children: <Widget>[
-            GenreButton(genre: 'Action'),
-            GenreButton(genre: 'Drama'),
-            GenreButton(genre: 'Comedy'),
-            GenreButton(genre: 'Horror'),
-            GenreButton(genre: 'Romance'),
-          ]
-        ),
-        floatingActionButton: FloatingActionButton(
-            child: Icon(Icons.check),
-            onPressed: null)
+    return WillPopScope(
+      onWillPop: backPressed,
+      child: Scaffold(
+          appBar: AppBar(
+            title: Text('Select Genres', style: TextStyle(fontSize: 24)),
+          ),
+          body: GridView.count(
+            primary: false,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            crossAxisCount: 1,
+            childAspectRatio: (itemWidth/itemHeight),
+            scrollDirection: Axis.vertical,
+            //TODO: Create buttons using WidgetBuilder
+            children: <Widget>[
+              GenreButton(genre: 'Action'),
+              GenreButton(genre: 'Drama'),
+              GenreButton(genre: 'Comedy'),
+              GenreButton(genre: 'Horror'),
+              GenreButton(genre: 'Romance'),
+            ]
+          ),
+          floatingActionButton: FloatingActionButton(
+              child: Icon(Icons.check),
+              onPressed: checkButtonPressed)
+      ),
     );
   }
 }

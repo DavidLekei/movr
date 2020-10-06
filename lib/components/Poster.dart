@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 
 class Poster extends StatelessWidget{
 
-  final String imagePath;
+  final Image image;
 
-  Poster({Key key, this.imagePath,}): super(key: key);
+  Poster({Key key, this.image,}): super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height * 0.70,
-        child: Image.asset(imagePath, fit: BoxFit.cover,),
+        child: image,
     );
   }
 

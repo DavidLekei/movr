@@ -13,8 +13,8 @@ class DisplayFilmPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    filmInfoList = getFilmInfoList();
-    return FilmCardStack(filmInfoList);
+    filmInfoList = createTestFilmInfoList();
+    return FilmCardStack(filmInfoList: filmInfoList);
 
 //    return Stack(
 //      children: [
@@ -28,6 +28,17 @@ class DisplayFilmPage extends StatelessWidget{
   List<FilmInfo> getFilmInfoList(){
     List<FilmInfo> filmInfoList;
 
+    filmInfoList = createTestFilmInfoList();
+
+    return filmInfoList;
+  }
+
+  List<FilmInfo> createTestFilmInfoList(){
+    List<FilmInfo> filmInfoList = List(20);
+
+    for(int i = 0; i < 20; i++) {
+      filmInfoList[i] = (FilmInfo('TestFilm$i', 'Just a Test #$i', Image.asset('assets/images/test_poster2.jpg', fit: BoxFit.cover), 6.5));
+    }
     return filmInfoList;
   }
 

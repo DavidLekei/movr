@@ -19,6 +19,7 @@ class _DraggableFilmCardState extends State<DraggableFilmCard>{
   Widget build(BuildContext context){
     return Draggable(
       child: this.widget.filmCard,
+      childWhenDragging: this.widget.childFilmCard,
       feedback: this.widget.filmCard,
       onDragEnd: (dragDetails) => determineSwipe(dragDetails),
       //onDragStarted: getPosition,

@@ -23,7 +23,8 @@ class _GroupSelectionPageState extends State<GroupSelectionPage>{
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             new RaisedButton(child: Text('Solo')),
-            new RaisedButton(child: Text('Group')),
+            new RaisedButton(child: Text('Group - I Need A Code')),
+            new RaisedButton(child: Text('Group - I Have A Code')),
           ]
         )
       ),

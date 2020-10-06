@@ -5,8 +5,9 @@ class FilmDescription extends StatelessWidget{
 
   final String filmName;
   final String filmDesc;
+  final double rating;
 
-  FilmDescription({Key key, this.filmName, this.filmDesc}): super(key: key);
+  FilmDescription({Key key, this.filmName, this.filmDesc, this.rating}): super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +37,14 @@ class FilmDescription extends StatelessWidget{
                 ]
               )
             ),
-            Icon(Icons.star, color: Colors.yellow,),
-            Text('TODO')
+            Container(
+              child: Row(
+                  children: [
+                    Icon(Icons.star, color: Colors.yellow,),
+                    Text('$rating')
+                ]
+              ),
+            )
           ]
         )
       ),

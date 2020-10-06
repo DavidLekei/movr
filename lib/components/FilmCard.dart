@@ -8,7 +8,13 @@ import 'package:movr/components/Poster.dart';
 import '../util/UserSelections.dart' as UserSelections;
 
 class FilmCard extends StatefulWidget{
-  FilmCard({Key key}): super(key: key);
+
+  final String filmName;
+  final String filmDesc;
+  final String pathToPoster;
+  final double rating;
+
+  FilmCard({Key key, this.filmName, this.filmDesc, this.pathToPoster, this.rating}): super(key: key);
 
   final List<String> services = UserSelections.services;
   final List<String> genres = UserSelections.genres;
@@ -27,8 +33,8 @@ class _FilmCardState extends State<FilmCard> {
         height: MediaQuery.of(context).size.height,
         child: Column(
           children: [
-            Poster(imagePath: 'assets/images/test_poster2.jpg'),
-            FilmDescription(filmName: 'Gerald\'s Game', filmDesc: 'A woman accidentally kills her husband during a kinky game. Handcuffed to her bed with no hope of rescue, she begins hearing voices and seeing strange visions.'),
+            Poster(imagePath: this.widget.pathToPoster),
+            FilmDescription(filmName: this.widget.filmName, filmDesc: this.widget.filmDesc, rating: this.widget.rating),
           ]
         ),
       );

@@ -4,43 +4,70 @@ import 'package:movr/data/FilmInfo.dart';
 
 import 'DraggableFilmCard.dart';
 
-class FilmCardStack extends StatelessWidget{
+class FilmCardStack extends StatefulWidget {
   List<DraggableFilmCard> draggableCardList = List();
   List<FilmCard> filmCardList = List();
   List<FilmInfo> filmInfoList = List();
 
   FilmCardStack({Key key, this.filmInfoList}) : super(key: key);
 
+  _FilmCardStackState createState() => _FilmCardStackState();
+
+}
+class _FilmCardStackState extends State<FilmCardStack>{
+
+  List<DraggableFilmCard> draggableFilmCardList;
 
   @override
-  Widget build(BuildContext context){
+  void initState() {
+    // TODO: implement initState
     createFilmCardList();
-    return Stack(
-      children: test(),
-    );
-//    stack.children.add(
-//        DraggableFilmCard(
-//          filmCard: FilmCard(filmName: 'Geralds Game', filmDesc: 'Gerald plays a game.', pathToPoster:'assets/images/test_poster2.jpg', rating: 6.6),
-//          childFilmCard: FilmCard(filmName: 'Geralds Game', filmDesc: 'Gerald plays a game.', pathToPoster:'assets/images/test_poster2.jpg', rating: 6.6),
-//      )
-//    );
-//
-//    return stack;
-//    return Stack(
-//      children: [
-//        DraggableFilmCard(
-//          filmCard: FilmCard(filmName: 'Geralds Game', filmDesc: 'Gerald plays a game.', pathToPoster:'assets/images/test_poster2.jpg', rating: 6.6),
-//          childFilmCard: FilmCard(filmName: 'Geralds Game', filmDesc: 'Gerald plays a game.', pathToPoster:'assets/images/test_poster2.jpg', rating: 6.6),
-//        ),
-//      ]
-//    );
+    draggableFilmCardList = createDraggableFilmCardList();
   }
 
+  @override
+  Widget build(BuildContext context) {
 
-  List<DraggableFilmCard> test(){
-    List<DraggableFilmCard> dFilmCards = List(filmCardList.length);
+    return Stack(
+      children: draggableFilmCardList,
+    );
+  }
 
-    dFilmCards[0] = (DraggableFilmCard(filmCard: filmCardList[1], childFilmCard:FilmCard(
+  determineSwipe(DraggableDetails dragDetails){
+    var pos = getPosition(dragDetails);
+    if(pos.getX() >= 250.0){
+      print('RIGHT SWIPE DETECTED FROM CALLBACK??');
+      setState(() {
+        print("SETTING STATE");
+        removeDraggableCard();
+      });
+    }
+    else if(pos.getX() <= -250.0){
+      print('LEFT SWIPE DETECTED');
+    }
+    else{
+      print('IGNORING SWIPE');
+    }
+  }
+
+  getPosition(DraggableDetails dragDetails){
+    var pos = Position(dragDetails.offset.dx, dragDetails.offset.dy);
+    return pos;
+  }
+
+  removeDraggableCard(){
+      print("Attempting to remove card...");
+      print(draggableFilmCardList.length);
+      draggableFilmCardList.removeLast();
+      print("After remove...");
+      print(draggableFilmCardList.length);
+  }
+
+  List<DraggableFilmCard> createDraggableFilmCardList(){
+    List<DraggableFilmCard> dFilmCards = List<DraggableFilmCard>();
+    List<FilmCard> filmCardList = this.widget.filmCardList;
+
+    dFilmCards.add(DraggableFilmCard(filmCard: filmCardList[1], childFilmCard:FilmCard(
       filmName: 'Out of Cards',
       filmDesc: 'No More Swiping',
       rating: 0.0,
@@ -48,26 +75,24 @@ class FilmCardStack extends StatelessWidget{
     )));
 
     for(int i = 1; i < filmCardList.length; i++){
-      dFilmCards[i] = DraggableFilmCard(filmCard: filmCardList[i], childFilmCard: filmCardList[i-1]);
-      print('Added: ');
-      print(filmCardList[i].filmName);
+      dFilmCards.add(DraggableFilmCard(filmCard: filmCardList[i], childFilmCard: filmCardList[i-1], onDragEnd: determineSwipe));
     }
-
-
 
     return dFilmCards;
   }
 
-  printFilmCardList(){
+
+
+  printFilmCardList(List<FilmCard> filmCardList){
     for(int i = 0; i < filmCardList.length; i++){
       print(filmCardList[i].filmName);
     }
   }
 
   createFilmCardList(){
-    for(int i = 0; i < filmInfoList.length; i++){
-      var filmInfo = filmInfoList[i];
-      filmCardList.add(
+    for(int i = 0; i < this.widget.filmInfoList.length; i++){
+      var filmInfo = this.widget.filmInfoList[i];
+      this.widget.filmCardList.add(
           FilmCard(
             filmName: filmInfo.getFilmName(),
             filmDesc: filmInfo.getFilmDesc(),

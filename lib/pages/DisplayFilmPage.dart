@@ -15,14 +15,6 @@ class DisplayFilmPage extends StatelessWidget{
     // TODO: implement build
     filmInfoList = createTestFilmInfoList();
     return FilmCardStack(filmInfoList: filmInfoList);
-
-//    return Stack(
-//      children: [
-//        DraggableFilmCard(),
-//        DraggableFilmCard(),
-//      ]
-//    );
-//    return DraggableFilmCard();
   }
 
   List<FilmInfo> getFilmInfoList(){

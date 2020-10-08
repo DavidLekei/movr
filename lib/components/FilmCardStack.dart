@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movr/components/FilmCard.dart';
 import 'package:movr/data/FilmInfo.dart';
+import 'package:movr/pages/MovrHomePage.dart';
 
 import 'DraggableFilmCard.dart';
 
@@ -23,6 +24,7 @@ class _FilmCardStackState extends State<FilmCardStack>{
     // TODO: implement initState
     createFilmCardList();
     draggableFilmCardList = createDraggableFilmCardList();
+    super.initState();
   }
 
   @override
@@ -68,11 +70,12 @@ class _FilmCardStackState extends State<FilmCardStack>{
   }
 
   removeDraggableCard(){
-      print("Attempting to remove card...");
-      print(draggableFilmCardList.length);
+
       draggableFilmCardList.removeLast();
-      print("After remove...");
-      print(draggableFilmCardList.length);
+      if(draggableFilmCardList.length == 0){
+          print('List is now Empty. Return to main menu');
+          Navigator.push(context, MaterialPageRoute(builder: (context) => MovrHomePage()));
+      }
   }
 
   List<DraggableFilmCard> createDraggableFilmCardList(){
@@ -84,7 +87,9 @@ class _FilmCardStackState extends State<FilmCardStack>{
       'No More Swiping',
       Image.asset('assets/images/test_poster2.jpg', fit: BoxFit.cover),
       0.0,)
-    )));
+     ),
+     onDragEnd: determineSwipe, )
+    );
 
     for(int i = 1; i < filmCardList.length; i++){
       dFilmCards.add(DraggableFilmCard(filmCard: filmCardList[i], childFilmCard: filmCardList[i-1], onDragEnd: determineSwipe));

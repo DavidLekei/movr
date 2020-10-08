@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movr/components/FilmCard.dart';
+import 'package:movr/pages/DisplayMatchesPage.dart';
 import 'package:movr/pages/GroupSelectionPage.dart';
 import 'package:flutter/services.dart';
 
@@ -25,6 +26,7 @@ class Movr extends StatelessWidget{
         '/SelectServices': (context) => SelectServicesPage(),
         '/GroupSizeSelection': (context) => GroupSelectionPage(),
         '/DisplayFilms': (context) => DisplayFilmPage(),
+        '/DisplayMatches': (context) => DisplayMatchesPage(),
       },
       title: 'Movr: Tinder for Movies',
       theme: ThemeData(

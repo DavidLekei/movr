@@ -37,17 +37,29 @@ class _FilmCardStackState extends State<FilmCardStack>{
     var pos = getPosition(dragDetails);
     if(pos.getX() >= 250.0){
       print('RIGHT SWIPE DETECTED FROM CALLBACK??');
-      setState(() {
-        print("SETTING STATE");
-        removeDraggableCard();
-      });
+      rightSwipe();
     }
     else if(pos.getX() <= -250.0){
       print('LEFT SWIPE DETECTED');
+      leftSwipe();
     }
     else{
       print('IGNORING SWIPE');
     }
+  }
+
+  rightSwipe(){
+    setState(() {
+      print("SETTING STATE");
+      removeDraggableCard();
+    });
+  }
+
+  leftSwipe(){
+    setState(() {
+      print("SETTING STATE");
+      removeDraggableCard();
+    });
   }
 
   getPosition(DraggableDetails dragDetails){
@@ -67,11 +79,11 @@ class _FilmCardStackState extends State<FilmCardStack>{
     List<DraggableFilmCard> dFilmCards = List<DraggableFilmCard>();
     List<FilmCard> filmCardList = this.widget.filmCardList;
 
-    dFilmCards.add(DraggableFilmCard(filmCard: filmCardList[1], childFilmCard:FilmCard(
-      filmName: 'Out of Cards',
-      filmDesc: 'No More Swiping',
-      rating: 0.0,
-      poster: Image.asset('assets/images/test_poster2.jpg', fit: BoxFit.cover),
+    dFilmCards.add(DraggableFilmCard(filmCard: filmCardList[1], childFilmCard:FilmCard(filmInfo: FilmInfo(
+      'Out of Cards',
+      'No More Swiping',
+      Image.asset('assets/images/test_poster2.jpg', fit: BoxFit.cover),
+      0.0,)
     )));
 
     for(int i = 1; i < filmCardList.length; i++){
@@ -85,7 +97,7 @@ class _FilmCardStackState extends State<FilmCardStack>{
 
   printFilmCardList(List<FilmCard> filmCardList){
     for(int i = 0; i < filmCardList.length; i++){
-      print(filmCardList[i].filmName);
+      print(filmCardList[i].filmInfo.filmName);
     }
   }
 
@@ -94,10 +106,7 @@ class _FilmCardStackState extends State<FilmCardStack>{
       var filmInfo = this.widget.filmInfoList[i];
       this.widget.filmCardList.add(
           FilmCard(
-            filmName: filmInfo.getFilmName(),
-            filmDesc: filmInfo.getFilmDesc(),
-            poster: filmInfo.getPoster(), //TODO: Change to actual image file from network
-            rating: filmInfo.getRating(),
+            filmInfo: filmInfo,
           )
       );
     }

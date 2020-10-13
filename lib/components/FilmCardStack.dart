@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movr/components/FilmCard.dart';
 import 'package:movr/data/FilmInfo.dart';
-import 'package:movr/pages/MovrHomePage.dart';
 
 import 'DraggableFilmCard.dart';
 
@@ -18,7 +16,6 @@ class _FilmCardStackState extends State<FilmCardStack>{
 
   @override
   Widget build(BuildContext context) {
-
     return Stack(
       children: this.widget.draggableCardList,
     );

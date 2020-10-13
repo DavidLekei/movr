@@ -8,6 +8,10 @@ class FilmInfo{
 
   FilmInfo(this.filmName, this.filmDesc, this.poster, this.rating);
 
+  static FilmInfo fromList(List list){
+    return new FilmInfo(list[1], list[3], Image.asset('assets/images/test_poster2.jpg'), 6.3);
+  }
+
   getFilmName(){
     return this.filmName;
   }
@@ -19,5 +23,10 @@ class FilmInfo{
   }
   getRating(){
     return this.rating;
+  }
+
+  void sprint(){
+    print('$filmName');
+    print(' - $filmDesc');
   }
 }

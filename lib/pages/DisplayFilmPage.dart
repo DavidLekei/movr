@@ -5,6 +5,9 @@ import 'package:movr/components/FilmCard.dart';
 import 'package:movr/components/FilmCardStack.dart';
 import 'package:movr/data/FilmInfo.dart';
 import 'package:movr/pages/DisplayMatchesPage.dart';
+import 'package:http/http.dart' as http;
+import 'package:movr/util/ApiClient.dart';
+
 
 class DisplayFilmPage extends StatefulWidget{
 
@@ -20,31 +23,57 @@ class _DisplayFilmPageState extends State<DisplayFilmPage> {
   List<FilmCard> filmCardList = List();
   List<DraggableFilmCard> draggableFilmCardList;
 
-  @override
-  void initState() {
+  Future<List<FilmInfo>> getFilmListFromApi() {
+    ApiClient api = ApiClient();
+    return api.getMovies(http.Client());
+    //return new Future.delayed(Duration(seconds: 3), () => _getFilmListFromApi());
+  }
+
+  Future<bool> createListsFromApi() async{
     filmInfoList = createTestFilmInfoList();
     createFilmCardList();
     draggableFilmCardList = createDraggableFilmCardList();
-    super.initState();
+    return true;
   }
+
 
   @override
   Widget build(BuildContext context) {
+    if(draggableFilmCardList != null){
+
+      if(draggableFilmCardList.length > 0) {
+        return FilmCardStack(draggableCardList: draggableFilmCardList);
+      }
+      else{
+        return EndOfList();
+      }
+    }
+    else {
+      return FutureBuilder(
+          future: getFilmListFromApi(),
+          builder: (context, snapshot) {
+            if ((snapshot.hasData) && (snapshot.connectionState == ConnectionState.done)) {
+              filmInfoList = snapshot.data;
+              createFilmCardList();
+              draggableFilmCardList = createDraggableFilmCardList();
+              if (draggableFilmCardList == null) {
+                print("list is null");
+              }
+
+              if (draggableFilmCardList.length > 0) {
+                return FilmCardStack(draggableCardList: draggableFilmCardList);
+              }
+              else {
+                return EndOfList();
+              }
+            }
+            else {
+              return CircularProgressIndicator();
+            }
+          }
+      );
+    }
     // TODO: implement build
-    if(draggableFilmCardList.length > 0) {
-      return FilmCardStack(draggableCardList: draggableFilmCardList);
-    }
-    else{
-      return EndOfList();
-    }
-  }
-
-  List<FilmInfo> getFilmInfoList() {
-    List<FilmInfo> filmInfoList;
-
-    filmInfoList = createTestFilmInfoList();
-
-    return filmInfoList;
   }
 
   List<FilmInfo> createTestFilmInfoList() {
@@ -75,7 +104,7 @@ class _DisplayFilmPageState extends State<DisplayFilmPage> {
 
   rightSwipe(){
     setState(() {
-      print("SETTING STATE");
+      //TODO: Add to chosen films list
       removeDraggableCard();
     });
   }
@@ -92,7 +121,6 @@ class _DisplayFilmPageState extends State<DisplayFilmPage> {
   }
 
   removeDraggableCard(){
-
     draggableFilmCardList.removeLast();
     if(draggableFilmCardList.length == 0){
       print('List is now Empty. Return to main menu');
@@ -118,14 +146,6 @@ class _DisplayFilmPageState extends State<DisplayFilmPage> {
     }
 
     return dFilmCards;
-  }
-
-
-
-  printFilmCardList(List<FilmCard> filmCardList){
-    for(int i = 0; i < filmCardList.length; i++){
-      print(filmCardList[i].filmInfo.filmName);
-    }
   }
 
   createFilmCardList(){

@@ -17,6 +17,7 @@ class _MovrHomePageState extends State<MovrHomePage>
 
   void debugButtonPressed(){
     Navigator.pushNamed(context, '/DisplayFilms');
+    //Navigator.pushNamed(context, '/LoadingPage');
   }
 
   @override

@@ -68,7 +68,11 @@ class _DisplayFilmPageState extends State<DisplayFilmPage> {
               }
             }
             else {
-              return CircularProgressIndicator();
+              return Scaffold(
+                body: Center(
+                  child: CircularProgressIndicator(),
+                )
+              );
             }
           }
       );

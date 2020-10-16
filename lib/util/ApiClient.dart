@@ -4,11 +4,12 @@ import 'package:http/http.dart' as http;
 import 'package:movr/data/FilmInfo.dart';
 
 class ApiClient{
-  final base_url = 'http://localhost:5000/';
+  final base_url = 'http://movr-api-env.eba-6imq5dvi.us-east-2.elasticbeanstalk.com/';
 
 
     List<FilmInfo> parseFilmInfoList(http.Response response){
       print("RESPONSE DATA: " );
+      print(response.body);
       Map<String, dynamic> filmsJson = jsonDecode(response.body);
       List<FilmInfo> filmInfoList = List();
       for (var val in filmsJson.values){

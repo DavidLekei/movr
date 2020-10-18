@@ -29,12 +29,12 @@ class _DisplayFilmPageState extends State<DisplayFilmPage> {
     //return new Future.delayed(Duration(seconds: 3), () => _getFilmListFromApi());
   }
 
-  Future<bool> createListsFromApi() async{
-    filmInfoList = createTestFilmInfoList();
-    createFilmCardList();
-    draggableFilmCardList = createDraggableFilmCardList();
-    return true;
-  }
+//  Future<bool> createListsFromApi() async{
+//    filmInfoList = createTestFilmInfoList();
+//    createFilmCardList();
+//    draggableFilmCardList = createDraggableFilmCardList();
+//    return true;
+//  }
 
 
   @override
@@ -80,16 +80,16 @@ class _DisplayFilmPageState extends State<DisplayFilmPage> {
     // TODO: implement build
   }
 
-  List<FilmInfo> createTestFilmInfoList() {
-    List<FilmInfo> filmInfoList = List(20);
-
-    for (int i = 0; i < 20; i++) {
-      filmInfoList[i] = (FilmInfo('TestFilm$i', 'Just a Test #$i',
-          Image.asset('assets/images/test_poster2.jpg', fit: BoxFit.cover),
-          6.5));
-    }
-    return filmInfoList;
-  }
+//  List<FilmInfo> createTestFilmInfoList() {
+//    List<FilmInfo> filmInfoList = List(20);
+//
+//    for (int i = 0; i < 20; i++) {
+//      filmInfoList[i] = (FilmInfo('TestFilm$i', 'Just a Test #$i',
+//          Image.asset('assets/images/test_poster2.jpg', fit: BoxFit.cover),
+//          6.5));
+//    }
+//    return filmInfoList;
+//  }
 
   determineSwipe(DraggableDetails dragDetails){
     var pos = getPosition(dragDetails);
@@ -139,7 +139,7 @@ class _DisplayFilmPageState extends State<DisplayFilmPage> {
     dFilmCards.add(DraggableFilmCard(filmCard: filmCardList[1], childFilmCard:FilmCard(filmInfo: FilmInfo(
       'Out of Cards',
       'No More Swiping',
-      Image.asset('assets/images/test_poster2.jpg', fit: BoxFit.cover),
+      'assets/images/test_poster2.jpg',//Image.asset('assets/images/test_poster2.jpg', fit: BoxFit.cover),
       0.0,)
     ),
       onDragEnd: determineSwipe, )

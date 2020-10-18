@@ -5,6 +5,7 @@ import 'package:movr/components/FilmDescription.dart';
 import 'package:movr/components/MovrAppBar.dart';
 import 'package:movr/components/Poster.dart';
 import 'package:movr/data/FilmInfo.dart';
+import 'package:movr/util/ApiClient.dart';
 
 import '../util/UserSelections.dart' as UserSelections;
 
@@ -28,6 +29,12 @@ class FilmCard extends StatefulWidget{
 
 class _FilmCardState extends State<FilmCard> {
 
+  Future<Image> getPoster(){
+    ApiClient apiClient = ApiClient();
+    Future<Image> poster = apiClient.getPosterFromURL(this.widget.filmInfo.posterID);
+    return poster;
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -36,7 +43,12 @@ class _FilmCardState extends State<FilmCard> {
         height: MediaQuery.of(context).size.height,
         child: Column(
           children: [
-            Poster(image: this.widget.filmInfo.poster),
+            FutureBuilder(
+              future: getPoster(),
+              builder: (context, snapshot) {
+                return Poster(image: snapshot.data);
+              }
+            ),
             FilmDescription(filmName: this.widget.filmInfo.filmName, filmDesc: this.widget.filmInfo.filmDesc, rating: this.widget.filmInfo.rating),
           ]
         ),

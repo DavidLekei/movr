@@ -7,6 +7,7 @@ import 'package:movr/data/FilmInfo.dart';
 import 'package:movr/pages/DisplayMatchesPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:movr/util/ApiClient.dart';
+import 'package:movr/util/Settings.dart';
 
 
 class DisplayFilmPage extends StatefulWidget{
@@ -52,7 +53,7 @@ class _DisplayFilmPageState extends State<DisplayFilmPage> {
       return FutureBuilder(
           future: getFilmListFromApi(),
           builder: (context, snapshot) {
-            if ((snapshot.hasData) && (snapshot.connectionState == ConnectionState.done)) {
+            if (snapshot.hasData == true && snapshot.connectionState == ConnectionState.done) {
               filmInfoList = snapshot.data;
               createFilmCardList();
               draggableFilmCardList = createDraggableFilmCardList();
@@ -60,7 +61,10 @@ class _DisplayFilmPageState extends State<DisplayFilmPage> {
                 print("list is null");
               }
 
-              if (draggableFilmCardList.length > 0) {
+              print(filmCardList.length);
+              print(Settings.maxFilms);
+
+              if (draggableFilmCardList.length == Settings.maxFilms) {
                 return FilmCardStack(draggableCardList: draggableFilmCardList);
               }
               else {
@@ -70,7 +74,13 @@ class _DisplayFilmPageState extends State<DisplayFilmPage> {
             else {
               return Scaffold(
                 body: Center(
-                  child: CircularProgressIndicator(),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Building List...'),
+                      CircularProgressIndicator(),
+                    ]
+                  ),
                 )
               );
             }
@@ -79,17 +89,6 @@ class _DisplayFilmPageState extends State<DisplayFilmPage> {
     }
     // TODO: implement build
   }
-
-//  List<FilmInfo> createTestFilmInfoList() {
-//    List<FilmInfo> filmInfoList = List(20);
-//
-//    for (int i = 0; i < 20; i++) {
-//      filmInfoList[i] = (FilmInfo('TestFilm$i', 'Just a Test #$i',
-//          Image.asset('assets/images/test_poster2.jpg', fit: BoxFit.cover),
-//          6.5));
-//    }
-//    return filmInfoList;
-//  }
 
   determineSwipe(DraggableDetails dragDetails){
     var pos = getPosition(dragDetails);

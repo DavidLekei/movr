@@ -6,7 +6,7 @@ import 'package:movr/data/FilmInfo.dart';
 
 class ApiClient{
   final baseApiURL = 'http://movr-api-env.eba-6imq5dvi.us-east-2.elasticbeanstalk.com/';
-  final basePosterURL = 'https://elasticbeanstalk-us-east-1-860313693320.s3.amazonaws.com/posters/netflix/action/';
+  final basePosterURL = 'https://elasticbeanstalk-us-east-1-860313693320.s3.amazonaws.com/movr/';
 
 
   Future<Image> getPosterFromURL(String posterID) async {

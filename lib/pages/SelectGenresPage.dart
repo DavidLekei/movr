@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movr/components/CheckboxButton.dart';
 import '../components/GenreButton.dart';
 import 'GroupSelectionPage.dart';
 
@@ -48,9 +49,9 @@ class _SelectGenresPageState extends State<SelectGenresPage> {
     return WillPopScope(
       onWillPop: backPressed,
       child: Scaffold(
-          appBar: AppBar(
-            title: Text('Select Genres', style: TextStyle(fontSize: 24)),
-          ),
+//          appBar: AppBar(
+//            title: Text('Select Genres', style: TextStyle(fontSize: 24)),
+//          ),
           body: GridView.count(
             primary: false,
             crossAxisSpacing: 10,
@@ -60,11 +61,17 @@ class _SelectGenresPageState extends State<SelectGenresPage> {
             scrollDirection: Axis.vertical,
             //TODO: Create buttons using WidgetBuilder
             children: <Widget>[
-              GenreButton(genre: 'Action'),
-              GenreButton(genre: 'Drama'),
-              GenreButton(genre: 'Comedy'),
-              GenreButton(genre: 'Horror'),
-              GenreButton(genre: 'Romance'),
+              Container(width: MediaQuery.of(context).size.width, height: MediaQuery.of(context).size.height/20),
+              CheckboxButton(icon: Icon(Icons.directions_run), label: 'Action', selectionsList: UserSelections.genres,),
+              CheckboxButton(icon: Icon(Icons.launch), label: 'Comedy', selectionsList: UserSelections.genres,),
+              CheckboxButton(icon: Icon(Icons.drafts), label: 'Drama', selectionsList: UserSelections.genres,),
+              CheckboxButton(icon: Icon(Icons.warning), label: 'Horror', selectionsList: UserSelections.genres,),
+              CheckboxButton(icon: Icon(Icons.favorite), label: 'Romance', selectionsList: UserSelections.genres,),
+//              GenreButton(genre: 'Action'),
+//              GenreButton(genre: 'Drama'),
+//              GenreButton(genre: 'Comedy'),
+//              GenreButton(genre: 'Horror'),
+//              GenreButton(genre: 'Romance'),
             ]
           ),
           floatingActionButton: FloatingActionButton(

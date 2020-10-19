@@ -18,7 +18,7 @@ import 'package:flutter/widgets.dart';
 class ServiceIcons {
   ServiceIcons._();
 
-  static const _kFontFam = 'MyFlutterApp';
+  static const _kFontFam = 'ServiceIcons';
   static const _kFontPkg = null;
 
   static const IconData amazon_prime_logo = IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);

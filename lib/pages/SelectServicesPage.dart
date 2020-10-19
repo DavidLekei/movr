@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movr/components/CheckboxButton.dart';
 import 'dart:async';
 
 import 'package:movr/pages/SelectGenresPage.dart';
@@ -38,12 +39,19 @@ class _SelectServicesPageState extends State<SelectServicesPage>{
             //TODO: Build serviceButtons with a WidgetBuilder/ListBuilder
             children: <Widget>[
               Container(width: MediaQuery.of(context).size.width, height: MediaQuery.of(context).size.height/20),
-              new ServiceButton(icon: Icon(ServiceIcons.netflix_symbol_pms), label: 'Netflix', ),
-              new ServiceButton(label: 'Amazon Prime'),
-              new ServiceButton(label: 'Hulu'),
-              new ServiceButton(label: 'Disney Plus'),
-              new ServiceButton(label: 'Crave'),
-              new ServiceButton(label: 'HBO'),
+              new CheckboxButton(icon: Icon(ServiceIcons.netflix_symbol_pms), label: 'Netflix', selectionsList: UserSelections.services),
+              new CheckboxButton(icon: Icon(ServiceIcons.amazon_prime_logo), label: 'Amazon Prime', selectionsList: UserSelections.services),
+              new CheckboxButton(icon: Icon(ServiceIcons.hulu_logo), label: 'Hulu', selectionsList: UserSelections.services),
+              new CheckboxButton(icon: Icon(ServiceIcons.disney__logo), label: 'Disney Plus', selectionsList: UserSelections.services),
+              new CheckboxButton(label: 'Crave', selectionsList: UserSelections.services),
+              new CheckboxButton(label: 'HBO', selectionsList: UserSelections.services),
+
+//              new ServiceButton(icon: Icon(ServiceIcons.netflix_symbol_pms), label: 'Netflix', ),
+//              new ServiceButton(label: 'Amazon Prime'),
+//              new ServiceButton(label: 'Hulu'),
+//              new ServiceButton(label: 'Disney Plus'),
+//              new ServiceButton(label: 'Crave'),
+//              new ServiceButton(label: 'HBO'),
             ]
           )
         ),

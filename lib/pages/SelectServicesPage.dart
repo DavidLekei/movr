@@ -3,6 +3,8 @@ import 'dart:async';
 
 import 'package:movr/pages/SelectGenresPage.dart';
 import '../components/ServiceButton.dart';
+import 'package:movr/util/ServiceIcons.dart';
+import 'package:movr/components/MovrButton.dart';
 import '../util/UserSelections.dart' as UserSelections;
 
 class SelectServicesPage extends StatefulWidget{
@@ -31,20 +33,17 @@ class _SelectServicesPageState extends State<SelectServicesPage>{
     return WillPopScope(
       onWillPop: backPressed,
       child: Scaffold(
-        appBar: AppBar(
-          title: Text('Select the Services you have'),
-          leading: new IconButton( icon: Icon(Icons.arrow_back), onPressed: backPressed),
-        ),
         body: Center(
           child: Column(
             //TODO: Build serviceButtons with a WidgetBuilder/ListBuilder
             children: <Widget>[
-              new ServiceButton(serviceName: 'Netflix'),
-              new ServiceButton(serviceName: 'Amazon Prime'),
-              new ServiceButton(serviceName: 'Hulu'),
-              new ServiceButton(serviceName: 'Disney Plus'),
-              new ServiceButton(serviceName: 'Crave'),
-              new ServiceButton(serviceName: 'HBO'),
+              Container(width: MediaQuery.of(context).size.width, height: MediaQuery.of(context).size.height/20),
+              new ServiceButton(icon: Icon(ServiceIcons.netflix_symbol_pms), label: 'Netflix', ),
+              new ServiceButton(label: 'Amazon Prime'),
+              new ServiceButton(label: 'Hulu'),
+              new ServiceButton(label: 'Disney Plus'),
+              new ServiceButton(label: 'Crave'),
+              new ServiceButton(label: 'HBO'),
             ]
           )
         ),

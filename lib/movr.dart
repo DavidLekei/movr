@@ -23,7 +23,7 @@ class Movr extends StatelessWidget{
     return MaterialApp(
       routes: {
         '/': (context) => MovrHomePage(),
-        //'/SelectGenres': (context) => SelectGenresPage(),
+        '/SelectGenres': (context) => SelectGenresPage(),
         '/SelectServices': (context) => SelectServicesPage(),
         '/GroupSizeSelection': (context) => GroupSelectionPage(),
         '/DisplayFilms': (context) => DisplayFilmPage(),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movr/components/CheckboxButton.dart';
 import '../components/GenreButton.dart';
+import 'DisplayFilmPage.dart';
 import 'GroupSelectionPage.dart';
 
 import '../util/UserSelections.dart' as UserSelections;
@@ -25,7 +26,7 @@ class _SelectGenresPageState extends State<SelectGenresPage> {
         {
           print(genre);
         }
-      Navigator.push(context, MaterialPageRoute(builder: (context) => GroupSelectionPage()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => DisplayFilmPage()));
   }
 
   Future<bool> backPressed() async

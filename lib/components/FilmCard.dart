@@ -12,6 +12,7 @@ import '../util/UserSelections.dart' as UserSelections;
 class FilmCard extends StatefulWidget{
 
   final FilmInfo filmInfo;
+  bool loaded = false;
 
 //  final String filmName;
 //  final String filmDesc;
@@ -46,6 +47,7 @@ class _FilmCardState extends State<FilmCard> {
             FutureBuilder(
               future: getPoster(),
               builder: (context, snapshot) {
+                this.widget.loaded = true;
                 return Poster(image: snapshot.data);
               }
             ),

@@ -20,22 +20,20 @@ class DisplayFilmPage extends StatefulWidget{
 
 class _DisplayFilmPageState extends State<DisplayFilmPage> {
 
-  List<FilmInfo> filmInfoList;
-  List<FilmCard> filmCardList = List();
   List<DraggableFilmCard> draggableFilmCardList;
 
-  Future<List<FilmInfo>> getFilmListFromApi() {
+  Future<List<FilmInfo>> getFilmListFromApi() async {
     ApiClient api = ApiClient();
     return api.getMovies(http.Client());
-    //return new Future.delayed(Duration(seconds: 3), () => _getFilmListFromApi());
   }
 
-//  Future<bool> createListsFromApi() async{
-//    filmInfoList = createTestFilmInfoList();
-//    createFilmCardList();
-//    draggableFilmCardList = createDraggableFilmCardList();
-//    return true;
-//  }
+Future<List<DraggableFilmCard>> createFilmCardStack() async {
+    List<FilmInfo> filmInfoList = await getFilmListFromApi();
+    List<FilmCard> filmCardList = createFilmCardList(filmInfoList);
+    List<DraggableFilmCard> draggableFilmCardList = createDraggableFilmCardList(filmCardList);
+    draggableFilmCardList = draggableFilmCardList.reversed.toList();
+    return draggableFilmCardList;
+}
 
 
   @override
@@ -51,20 +49,29 @@ class _DisplayFilmPageState extends State<DisplayFilmPage> {
     }
     else {
       return FutureBuilder(
-          future: getFilmListFromApi(),
+          future: createFilmCardStack(),
           builder: (context, snapshot) {
             if (snapshot.hasData == true && snapshot.connectionState == ConnectionState.done) {
-              filmInfoList = snapshot.data;
-              createFilmCardList();
-              draggableFilmCardList = createDraggableFilmCardList();
+              draggableFilmCardList = snapshot.data;
               if (draggableFilmCardList == null) {
                 print("list is null");
               }
+              if(draggableFilmCardList[0].filmCard.loaded == true){
+                return Scaffold(
+                    body: Center(
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('Building List...'),
+                            CircularProgressIndicator(),
+                          ]
+                      ),
+                    )
+                );
+              }
 
-              print(filmCardList.length);
-              print(Settings.maxFilms);
 
-              if (draggableFilmCardList.length == Settings.maxFilms) {
+              if (draggableFilmCardList.length == Settings.maxFilms){
                 return FilmCardStack(draggableCardList: draggableFilmCardList);
               }
               else {
@@ -131,34 +138,36 @@ class _DisplayFilmPageState extends State<DisplayFilmPage> {
     }
   }
 
-  List<DraggableFilmCard> createDraggableFilmCardList(){
+  List<DraggableFilmCard> createDraggableFilmCardList(List<FilmCard> filmCardList){
     List<DraggableFilmCard> dFilmCards = List<DraggableFilmCard>();
-    List<FilmCard> filmCardList = this.filmCardList;
 
-    dFilmCards.add(DraggableFilmCard(filmCard: filmCardList[1], childFilmCard:FilmCard(filmInfo: FilmInfo(
+    for(int i = 0; i < filmCardList.length - 1; i++){
+      dFilmCards.add(DraggableFilmCard(filmCard: filmCardList[i], childFilmCard: filmCardList[i+1], onDragEnd: determineSwipe));
+    }
+
+    dFilmCards.add(DraggableFilmCard(filmCard: filmCardList[filmCardList.length - 1], childFilmCard:FilmCard(filmInfo: FilmInfo(
       'Out of Cards',
       'No More Swiping',
-      'out_of_cards.png',//Image.asset('assets/images/test_poster2.jpg', fit: BoxFit.cover),
+      'out_of_cards',//Image.asset('assets/images/test_poster2.jpg', fit: BoxFit.cover),
       0.0,)
     ),
       onDragEnd: determineSwipe, )
     );
 
-    for(int i = 1; i < filmCardList.length; i++){
-      dFilmCards.add(DraggableFilmCard(filmCard: filmCardList[i], childFilmCard: filmCardList[i-1], onDragEnd: determineSwipe));
-    }
-
     return dFilmCards;
   }
 
-  createFilmCardList(){
-    for(int i = 0; i < this.filmInfoList.length; i++){
-      var filmInfo = this.filmInfoList[i];
-      this.filmCardList.add(
+  List<FilmCard> createFilmCardList(List<FilmInfo> filmInfoList){
+    List<FilmCard> filmCardList = List();
+
+    for(int i = 0; i < filmInfoList.length; i++) {
+      var filmInfo = filmInfoList[i];
+      filmCardList.add(
           FilmCard(
             filmInfo: filmInfo,
           )
       );
     }
+    return filmCardList;
   }
 }

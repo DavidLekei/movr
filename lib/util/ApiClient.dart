@@ -13,7 +13,11 @@ class ApiClient{
     if(posterID[0] == '0'){
       posterID = posterID.substring(1, posterID.length - 1);
     } //, loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent loadingProgress){ return Center(child: child); }
-    return Image.network(basePosterURL + posterID + '.jpg', fit: BoxFit.fill);
+    Image image = new Image.network(basePosterURL + posterID + '.jpg', fit: BoxFit.fill);
+    image.image.resolve(new ImageConfiguration()).addListener(new ImageStreamListener((info, call){
+      print('Image: ' + posterID + ' has finished loading.');
+    }));
+    return image;
   }
 
     List<FilmInfo> parseFilmInfoList(http.Response response){
@@ -34,7 +38,6 @@ class ApiClient{
       http.Response response = await client.get(baseApiURL + params);
       if(response.statusCode == 200){
         List<FilmInfo> filmInfoList = parseFilmInfoList(response);
-        print('FilmInfoList Created!');
         return filmInfoList;
       }
       else{

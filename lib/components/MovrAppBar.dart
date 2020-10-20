@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movr/movr.dart';
+import 'package:movr/main.dart';
 
 class MovrAppBar extends StatefulWidget implements PreferredSizeWidget{
 

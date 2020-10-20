@@ -1,3 +1,3 @@
 class Settings{
-  static var maxFilms = 20;
+  static var maxFilms = 10;
 }

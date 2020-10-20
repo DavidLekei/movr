@@ -6,14 +6,14 @@ import 'package:movr/data/FilmInfo.dart';
 
 class ApiClient{
   final baseApiURL = 'http://movr-api-env.eba-6imq5dvi.us-east-2.elasticbeanstalk.com/';
-  final basePosterURL = 'https://elasticbeanstalk-us-east-1-860313693320.s3.amazonaws.com/movr/';
+  final basePosterURL = 'https://elasticbeanstalk-us-east-1-860313693320.s3.amazonaws.com/movr/imdb_top_100/';
 
 
   Future<Image> getPosterFromURL(String posterID) async {
     if(posterID[0] == '0'){
       posterID = posterID.substring(1, posterID.length - 1);
-    }
-    return Image.network(basePosterURL + posterID + '.jpg');
+    } //, loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent loadingProgress){ return Center(child: child); }
+    return Image.network(basePosterURL + posterID + '.jpg', fit: BoxFit.fill);
   }
 
     List<FilmInfo> parseFilmInfoList(http.Response response){
@@ -29,8 +29,9 @@ class ApiClient{
 
     Future<List<FilmInfo>> getMovies(http.Client client) async {
       print("Sending HTTP Request");
-      final getMoviesParams = 'getMovies?service=netflix&numFilms=20&genres=action,drama,scifi';
-      http.Response response = await client.get(baseApiURL + getMoviesParams);
+//      final getMoviesParams = 'getMovies?service=netflix&numFilms=20&genres=action,drama,scifi';
+      final params = 'getTop100';
+      http.Response response = await client.get(baseApiURL + params);
       if(response.statusCode == 200){
         List<FilmInfo> filmInfoList = parseFilmInfoList(response);
         print('FilmInfoList Created!');

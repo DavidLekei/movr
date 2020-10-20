@@ -138,7 +138,7 @@ class _DisplayFilmPageState extends State<DisplayFilmPage> {
     dFilmCards.add(DraggableFilmCard(filmCard: filmCardList[1], childFilmCard:FilmCard(filmInfo: FilmInfo(
       'Out of Cards',
       'No More Swiping',
-      'assets/images/test_poster2.jpg',//Image.asset('assets/images/test_poster2.jpg', fit: BoxFit.cover),
+      'out_of_cards.png',//Image.asset('assets/images/test_poster2.jpg', fit: BoxFit.cover),
       0.0,)
     ),
       onDragEnd: determineSwipe, )

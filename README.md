@@ -26,6 +26,17 @@ Amazon's S3 was used to store movie/tv show posters.
 
 ## Screenshots
 
+### Choose the services you have
+
+![](https://i.gyazo.com/aa04359f51f92fb033e9dce66f275e86.png)
+
+### Then select the genre's you're interesting in
+
+![](https://i.gyazo.com/eefff1b57244e09ede7659cd53482e0d.png)
+
+### Then start swiping! Right for "Want to watch". Left for "Don't want to watch"
+
+![](https://i.gyazo.com/0174c0a45dd2cef558b3185694321fa2.mp4)
 
 ## Author
 

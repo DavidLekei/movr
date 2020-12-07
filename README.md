@@ -2,15 +2,29 @@
 
 Tinder for Movies
 
-## Getting Started
+(DISCLAIMER: This project is still a work in progress. In it's current state, it servers as a high fidelity prototype.)
 
-This project is a starting point for a Flutter application.
+## About
 
-A few resources to get you started if this is your first Flutter project:
+movr is an app for Android and iOS that helps groups to choose a movie/tv show to watch. 
+Each user swipes through the same list of movies/tv shows. If all users swipe 'yes' to a movie/tv show, it gets added to a list of matches.
+The matches are then displayed to the group so they can choose something they all want to watch.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Technology used
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+movr was developed in Android Studio using Flutter for cross platform on Android/iOS.
+I created an HTTP API using Python/Flask running on Amazon's ElasticBeanstalk to create/retrieve lists of movies based on user-specified parameters.
+All movie data was scraped from the web using a scraper I wrote in Python. 
+Amazon's RDS was used for a MySQL server to store movie/tv show data.
+Amazon's S3 was used to store movie/tv show posters.
+
+## Screenshots
+
+
+## Author
+
+David Lekei
+
+## License
+
+

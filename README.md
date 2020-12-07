@@ -36,7 +36,7 @@ Amazon's S3 was used to store movie/tv show posters.
 
 ### Then start swiping! Right for "Want to watch". Left for "Don't want to watch"
 
-![](https://i.gyazo.com/0174c0a45dd2cef558b3185694321fa2.mp4)
+![](https://i.gyazo.com/0174c0a45dd2cef558b3185694321fa2.gif)
 
 ## Author
 
